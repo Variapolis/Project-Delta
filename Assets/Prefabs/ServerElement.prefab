@@ -553,6 +553,7 @@ GameObject:
   - component: {fileID: 8405577812883885096}
   - component: {fileID: 8405577812883885101}
   - component: {fileID: 8405577812883885103}
+  - component: {fileID: -1522009607379002941}
   m_Layer: 5
   m_Name: ServerElement
   m_TagString: Untagged
@@ -622,3 +623,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &-1522009607379002941
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8405577812883885097}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18ff72971f724bf1bed615bd9d9950f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  title: {fileID: 8405577811680517923}
+  map: {fileID: 8405577812335971679}
+  players: {fileID: 8405577812795321366}
+  latency: {fileID: 8405577811430492818}

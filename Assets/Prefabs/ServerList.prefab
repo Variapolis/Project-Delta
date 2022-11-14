@@ -920,7 +920,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1536344736765591853}
   m_HandleRect: {fileID: 1536344736765591854}
   m_Direction: 2
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -1018,6 +1018,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba294c350e17397498347985285e8174, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  serverListContent: {fileID: 1536344735111104779}
+  serverElementPrefab: {fileID: 8405577812883885097, guid: ee05b94278069334eb108c805529e634, type: 3}
 --- !u!1 &1536344735706522186
 GameObject:
   m_ObjectHideFlags: 0

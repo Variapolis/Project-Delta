@@ -13,18 +13,16 @@ public class ServerElement : MonoBehaviour
     [SerializeField] private TMP_Text latency;
 
     private RoomInfo _room;
-
-    [Inject]
-    private void Construct(RoomInfo room)
+    public RoomInfo Room
     {
-        _room = room;
-        title.text = room.Name;
-        map.text = "Default";
-        players.text = $"{room.PlayerCount.ToString()}/{room.MaxPlayers.ToString()}";
-        latency.text = PhotonNetwork.GetPing().ToString();
-    }
-    [UsedImplicitly]
-    public class Factory : PlaceholderFactory<RoomInfo, ServerElement>
-    {
+        get => Room;
+        set
+        {
+            _room = value;
+            title.text = value.Name;
+            map.text = "Default";
+            players.text = $"{value.PlayerCount.ToString()}/{value.MaxPlayers.ToString()}";
+            latency.text = PhotonNetwork.GetPing().ToString();
+        }
     }
 }
