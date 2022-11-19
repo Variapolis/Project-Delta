@@ -49,9 +49,9 @@ public class PlayerController : MonoBehaviour
     private void TurnToCrosshair()
     {
         var crosshairPos = _crosshairController.worldPosition;
-        var viewDir = new Vector3(crosshairPos.x, orientation.position.y, crosshairPos.z) - orientation.position;
-        playerModel.forward = Vector3.Slerp(playerModel.forward, viewDir.normalized,
-            Time.deltaTime * rotationSpeed);
+        var lookDir = Quaternion.LookRotation(
+            new Vector3(crosshairPos.x, orientation.position.y, crosshairPos.z) - orientation.position);
+        playerModel.rotation = Quaternion.Slerp(playerModel.rotation, lookDir, Time.deltaTime * rotationSpeed);
     }
 
     private void FixedUpdate() => MovePlayer();
@@ -75,7 +75,7 @@ public class PlayerController : MonoBehaviour
     void FaceForward()
     {
         // var viewDir = transform.position - new Vector3(camera.position.x, transform.position.y, camera.position.z);
-        
+
 
         var inputDir = orientation.forward * verticalInput + orientation.right * horizontalInput;
 
