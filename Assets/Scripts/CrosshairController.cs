@@ -17,5 +17,5 @@ public class CrosshairController : MonoBehaviour
 
     private void Start() => Cursor.visible = false;
 
-    void LateUpdate() => transform.position = Input.mousePosition;
+    void Update() => transform.position = Input.mousePosition;
 }

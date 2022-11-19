@@ -3,8 +3,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     [Header("Movement")] [SerializeField] private float moveSpeed;
-    [SerializeField] private Transform playerModel;
-    [SerializeField] private Transform camera;
+    [SerializeField] private Transform cameraHolder;
     [SerializeField] private Transform orientation;
     [SerializeField] private float groundDrag;
     [SerializeField] private float rotationSpeed;
@@ -13,16 +12,19 @@ public class PlayerController : MonoBehaviour
     private float playerHeight;
 
     [SerializeField] LayerMask groundMask;
-    private bool isGrounded;
+    private bool isGrounded; // BUG: Doesn't work
 
     [Header("References")] private float horizontalInput;
     private float verticalInput;
     private Vector3 moveDirection;
+    private Transform animationAdjustment;
 
     private Rigidbody rb;
+    [SerializeField] private Animator _animator;
 
     [SerializeField] private CrosshairController _crosshairController;
     private bool isAiming;
+
 
     private void Start()
     {
@@ -36,14 +38,30 @@ public class PlayerController : MonoBehaviour
         GetInput();
         LimitSpeed();
         rb.drag = isGrounded ? groundDrag : 0f;
-        orientation.forward = camera.forward.normalized;
-        if (Input.GetKey(KeyCode.Mouse1))
+        // orientation.forward = cameraHolder.forward.normalized;
+        isAiming = Input.GetKey(KeyCode.Mouse1);
+        if (isAiming) TurnToCrosshair();
+        else if (moveDirection.x != 0f || moveDirection.z != 0f) FaceForward();
+        Animate();
+    }
+
+    [SerializeField] Quaternion fromto;
+    [SerializeField] private Vector3 input;
+    [SerializeField] private Vector3 movement;
+
+    void Animate()
+    {
+        if (isAiming)
         {
-            TurnToCrosshair();
+            fromto = Quaternion.FromToRotation(orientation.forward, cameraHolder.forward);
+            input = new Vector3(horizontalInput, 0, verticalInput).normalized;
+            movement = fromto * input;
+            _animator.SetFloat("MovementRight", movement.x);
+            _animator.SetFloat("MovementForward", movement.z);
             return;
         }
-
-        if (moveDirection.x != 0f || moveDirection.z != 0f) FaceForward();
+        _animator.SetFloat("MovementForward", Mathf.Max(Mathf.Abs(verticalInput), Mathf.Abs(horizontalInput)));
+        _animator.SetFloat("MovementRight", 0f);
     }
 
     private void TurnToCrosshair()
@@ -51,7 +69,8 @@ public class PlayerController : MonoBehaviour
         var crosshairPos = _crosshairController.worldPosition;
         var lookDir = Quaternion.LookRotation(
             new Vector3(crosshairPos.x, orientation.position.y, crosshairPos.z) - orientation.position);
-        playerModel.rotation = Quaternion.Slerp(playerModel.rotation, lookDir, Time.deltaTime * rotationSpeed);
+        transform.rotation =
+            Quaternion.Slerp(transform.rotation, lookDir.normalized, Time.deltaTime * rotationSpeed);
     }
 
     private void FixedUpdate() => MovePlayer();
@@ -77,15 +96,17 @@ public class PlayerController : MonoBehaviour
         // var viewDir = transform.position - new Vector3(camera.position.x, transform.position.y, camera.position.z);
 
 
-        var inputDir = orientation.forward * verticalInput + orientation.right * horizontalInput;
-
-        playerModel.forward = Vector3.Slerp(playerModel.forward, inputDir.normalized,
+        var inputDir = cameraHolder.forward * verticalInput + cameraHolder.right * horizontalInput;
+        
+        transform.forward = Vector3.Slerp(transform.forward, inputDir.normalized,
             Time.deltaTime * rotationSpeed);
+        // TODO: Make this face left and right and back based on WASD input and based on the camera direction, and then play the forward animation.
+        // TODO: UNLESS aiming, in which case, use directional controls and animations.
     }
 
     void MovePlayer()
     {
-        moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
+        moveDirection = cameraHolder.forward * verticalInput + cameraHolder.right * horizontalInput;
         rb.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.Force);
     }
 }
