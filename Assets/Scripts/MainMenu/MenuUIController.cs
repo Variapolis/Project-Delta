@@ -2,14 +2,13 @@ using UniRx;
 using UnityEngine;
 using Zenject;
 
-public class MenuUIController : MonoBehaviour
+public class MenuUIController : MonoBehaviour, IInitializable
 {
     [Inject] private MainMenuModel _menuModel;
 
     [SerializeField] private MenuState openState;
-    
-    private void Awake()
-    {
+
+    void IInitializable.Initialize() =>
         _menuModel.MenuState
             .DistinctUntilChanged()
             .Where(s => gameObject.activeSelf != (s == openState))
@@ -19,6 +18,5 @@ public class MenuUIController : MonoBehaviour
                 Debug.Log($"{gameObject.name}: {openState} - {s}: {s == openState}");
             })
             .AddTo(gameObject);
-    }
 }
 

@@ -9,5 +9,6 @@ public class MainMenuInstaller : MonoInstaller
     {
         Container.Bind<MainMenuModel>().AsSingle().NonLazy();
         Container.BindInstance(_mainMenuController).AsSingle().NonLazy();
+        Container.Bind<IInitializable>().To<MenuUIController>().FromComponentsInHierarchy().AsCached();
     }
 }

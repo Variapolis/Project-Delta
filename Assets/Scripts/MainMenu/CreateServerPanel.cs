@@ -36,5 +36,6 @@ public class CreateServerPanel : MonoBehaviourPunCallbacks
             MaxPlayers = byte.Parse(maxPlayers.options[maxPlayers.value].text)
         };
         PhotonNetwork.CreateRoom(nameInput.text, roomOptions);
+        gameObject.SetActive(false);
     }
 }

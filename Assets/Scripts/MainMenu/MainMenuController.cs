@@ -18,7 +18,7 @@ public class MainMenuController : MonoBehaviourPunCallbacks
 
     public override void OnJoinedLobby() => _menuModel.SetMenuState(MenuState.Lobby);
 
-    // public override void OnLeftLobby() => _menuModel.SetMenuState(MenuState.Lobby);
+    public override void OnLeftLobby() => _menuModel.SetMenuState(MenuState.MainMenu);
 
     public override void OnDisconnected(DisconnectCause cause) => _menuModel.SetMenuState(MenuState.Disconnected);
 }
