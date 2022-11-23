@@ -45,17 +45,13 @@ public class PlayerController : MonoBehaviour
         Animate();
     }
 
-    [SerializeField] Quaternion fromto;
-    [SerializeField] private Vector3 input;
-    [SerializeField] private Vector3 movement;
-
     void Animate()
     {
         if (isAiming)
         {
-            fromto = Quaternion.FromToRotation(orientation.forward, cameraHolder.forward);
-            input = new Vector3(horizontalInput, 0, verticalInput).normalized;
-            movement = fromto * input;
+            var fromToRotation = Quaternion.FromToRotation(orientation.forward, cameraHolder.forward);
+            var input = new Vector3(horizontalInput, 0, verticalInput).normalized;
+            var movement = fromToRotation * input;
             _animator.SetFloat("MovementRight", movement.x);
             _animator.SetFloat("MovementForward", movement.z);
             return;
