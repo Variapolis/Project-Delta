@@ -1,19 +1,20 @@
+using Photon.Pun;
 using UnityEngine;
 
 public class PlayerMovementController : MonoBehaviour
 {
     [Header("Movement")] [SerializeField] private float moveSpeed;
-    [SerializeField] private Transform cameraHolder;
+    public Transform cameraHolder;
     [SerializeField] private Transform orientation;
     [SerializeField] private float rotationSpeed;
-
+    [SerializeField] private PhotonView photonView;
     [Header("References")] private float _horizontalInput;
     private float _verticalInput;
     private Vector3 _moveDirection;
 
     [SerializeField] private Rigidbody rb;
     [SerializeField] private Animator animator;
-    [SerializeField] private CrosshairController crosshairController;
+    public CrosshairController crosshairController;
     [SerializeField] private WeaponIKHandler _weaponIKHandler;
     private bool _isAiming;
 
@@ -22,6 +23,7 @@ public class PlayerMovementController : MonoBehaviour
 
     private void Update()
     {
+        if (!photonView.IsMine) return;
         GetInput();
         LimitSpeed();
         _isAiming = Input.GetMouseButton(1);
