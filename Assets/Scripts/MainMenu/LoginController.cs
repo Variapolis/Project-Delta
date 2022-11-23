@@ -39,6 +39,7 @@ public class LoginController : MonoBehaviourPunCallbacks
     {
         PhotonNetwork.LocalPlayer.NickName = nicknameField.text;
         PhotonNetwork.ConnectUsingSettings();
+        PhotonNetwork.AutomaticallySyncScene = true;
         ShowWarning("Connecting...", Color.yellow);
     }
 
