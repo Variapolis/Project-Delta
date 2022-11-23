@@ -3,9 +3,10 @@ using Photon.Pun;
 using Photon.Realtime;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using Zenject;
 
-public class ServerElement : MonoBehaviour
+public class ServerElement : MonoBehaviour, IPointerClickHandler
 {
     [SerializeField] private TMP_Text title;
     [SerializeField] private TMP_Text map;
@@ -25,4 +26,6 @@ public class ServerElement : MonoBehaviour
             latency.text = PhotonNetwork.GetPing().ToString();
         }
     }
+
+    public void OnPointerClick(PointerEventData eventData) => PhotonNetwork.JoinRoom(_room.Name);
 }

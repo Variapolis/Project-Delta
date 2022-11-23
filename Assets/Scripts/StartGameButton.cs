@@ -23,6 +23,6 @@ public class StartGameButton : MonoBehaviour
     {
         PhotonNetwork.CurrentRoom.IsOpen = false;
         PhotonNetwork.CurrentRoom.IsVisible = false;
-        PhotonNetwork.LoadLevel("Multiplayer");
+        PhotonNetwork.LoadLevel("OnlinePlay");
     }
 }

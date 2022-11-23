@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine;
+using Zenject;
 
 public class ServerListController : MonoBehaviourPunCallbacks
 {

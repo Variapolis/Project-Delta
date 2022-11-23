@@ -1,4 +1,5 @@
-﻿using Photon.Realtime;
+﻿using Photon.Pun;
+using Photon.Realtime;
 using TMPro;
 using UnityEngine;
 
@@ -18,6 +19,7 @@ public class PlayerUI : MonoBehaviour
             _player = value;
             nameText.text = value.NickName;
             playerIDText.text = _player.ActorNumber.ToString();
+            if(Equals(value, PhotonNetwork.LocalPlayer)) nameText.color = Color.yellow;
             // playerLatencyText.text = PhotonNetwork.GetPing().ToString();
         }
     }

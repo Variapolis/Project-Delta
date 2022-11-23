@@ -12,18 +12,25 @@ public class PlayerListController : MonoBehaviourPunCallbacks
     public override void OnEnable()
     {
         startGameButton.gameObject.SetActive(PhotonNetwork.IsMasterClient);
-        RefreshPlayerList();
+        if (PhotonNetwork.InRoom) RefreshPlayerList();
+        base.OnEnable();
     }
 
     public override void OnJoinedRoom() => RefreshPlayerList();
 
-    public override void OnPlayerEnteredRoom(Player newPlayer) => RefreshPlayerList();
+    public override void OnPlayerEnteredRoom(Player newPlayer)
+    {
+        Debug.Log("Player Joined");
+        RefreshPlayerList();
+    }
 
     private void RefreshPlayerList()
     {
         Debug.Log("Refreshed Servers");
         playerListContent.DestroyChildren();
         foreach (var player in PhotonNetwork.CurrentRoom.Players)
+        {
             Instantiate(playerUIPrefab, playerListContent).GetComponent<PlayerUI>().Player = player.Value;
+        }
     }
 }
