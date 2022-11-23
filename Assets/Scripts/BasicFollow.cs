@@ -11,6 +11,8 @@ public class BasicFollow : MonoBehaviour
 
     private void Start() => _offset = transform.position - parent.position;
 
-    private void Update() => transform.position = Vector3.Slerp(transform.position, parent.transform.position + _offset,
-        Time.deltaTime * speed * (transform.position - (transform.position + _offset)).magnitude);
+    private void Update() =>
+        transform.position = parent.position + _offset;
+    // = Vector3.Slerp(transform.position, parent.transform.position + _offset,
+    //Time.deltaTime * speed * (transform.position - (transform.position + _offset)).magnitude);
 }
