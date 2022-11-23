@@ -1235,6 +1235,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3432024672438332138}
   - component: {fileID: 3432024672438332139}
+  - component: {fileID: 5777912444938012594}
   m_Layer: 0
   m_Name: Rig
   m_TagString: Untagged
@@ -1276,6 +1277,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Weight: 1
   m_Effectors: []
+--- !u!114 &5777912444938012594
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3432024672438332136}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7895768fadca0cf40bc397085ad69bf7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rig: {fileID: 3432024672438332139}
+  speed: 5
+  target: {fileID: 0}
+  leftHandConstraint: {fileID: 0}
+  ikAimConstraints: []
 --- !u!1 &3432024672514081417
 GameObject:
   m_ObjectHideFlags: 0
@@ -8232,6 +8250,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 5659197096590873921, guid: 5639e5e8dc0196440bbc64ef4b46650b, type: 3}
+      propertyPath: animator
+      value: 
+      objectReference: {fileID: 3432024672844965405}
+    - target: {fileID: 5659197096590873921, guid: 5639e5e8dc0196440bbc64ef4b46650b, type: 3}
       propertyPath: _animator
       value: 
       objectReference: {fileID: 3432024672844965405}
@@ -8239,9 +8261,13 @@ PrefabInstance:
       propertyPath: orientation
       value: 
       objectReference: {fileID: 2894610856689107402}
+    - target: {fileID: 5659197096590873921, guid: 5639e5e8dc0196440bbc64ef4b46650b, type: 3}
+      propertyPath: _weaponIKHandler
+      value: 
+      objectReference: {fileID: 5777912444938012594}
     - target: {fileID: 5659197096590873922, guid: 5639e5e8dc0196440bbc64ef4b46650b, type: 3}
       propertyPath: m_Name
-      value: PlayerPrefab (1)
+      value: PlayerSWAT Variant
       objectReference: {fileID: 0}
     - target: {fileID: 5659197096590873934, guid: 5639e5e8dc0196440bbc64ef4b46650b, type: 3}
       propertyPath: m_RootOrder
@@ -8249,7 +8275,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5659197096590873934, guid: 5639e5e8dc0196440bbc64ef4b46650b, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -4.81
       objectReference: {fileID: 0}
     - target: {fileID: 5659197096590873934, guid: 5639e5e8dc0196440bbc64ef4b46650b, type: 3}
       propertyPath: m_LocalPosition.y
