@@ -3,8 +3,9 @@
     public enum DamageType
     {
         Hit,
-        Explosion,
-        Stun
+        Explosive,
+        Stun,
+        Blind
     }
     
     public void Damage(float damage, DamageType damageType = DamageType.Hit);
