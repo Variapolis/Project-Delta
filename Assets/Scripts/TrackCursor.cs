@@ -5,7 +5,11 @@ using UnityEngine;
 
 public class TrackCursor : MonoBehaviour
 {
-    [SerializeField] private CrosshairController crosshair;
+    public CrosshairController crosshair;
 
-    private void Update() => transform.position = crosshair.worldPosition;
+    private void Update()
+    {
+        if (!crosshair) return;
+        transform.position = crosshair.worldPosition;
+    }
 }

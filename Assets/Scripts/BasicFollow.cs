@@ -1,18 +1,20 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class BasicFollow : MonoBehaviour
 {
-    [SerializeField] private Transform parent;
+    public Transform parent;
     [SerializeField] private float speed;
     private Vector3 _offset;
 
-    private void Start() => _offset = transform.position - parent.position;
+    private void Start()
+    {
+        if (!parent) return;
+        _offset = transform.position - parent.position;
+    }
 
-    private void Update() =>
+    private void Update()
+    {
+        if (!parent) return;
         transform.position = parent.position + _offset;
-    // = Vector3.Slerp(transform.position, parent.transform.position + _offset,
-    //Time.deltaTime * speed * (transform.position - (transform.position + _offset)).magnitude);
+    }
 }
