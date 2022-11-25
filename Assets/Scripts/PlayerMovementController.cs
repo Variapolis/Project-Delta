@@ -1,10 +1,13 @@
 using Photon.Pun;
 using UnityEngine;
+using Zenject;
 
 public class PlayerMovementController : MonoBehaviour
 {
+    [Inject] private readonly CameraHolderController _cameraHolder;
+    [Inject] private readonly CrosshairController crosshairController;
+    
     [Header("Movement")] [SerializeField] private float moveSpeed;
-    public Transform cameraHolder;
     [SerializeField] private Transform orientation;
     [SerializeField] private float rotationSpeed;
     [SerializeField] private PhotonView photonView;
@@ -14,7 +17,7 @@ public class PlayerMovementController : MonoBehaviour
 
     [SerializeField] private Rigidbody rb;
     [SerializeField] private Animator animator;
-    public CrosshairController crosshairController;
+    
     [SerializeField] private WeaponIKHandler _weaponIKHandler;
     private bool _isAiming;
 
@@ -43,7 +46,7 @@ public class PlayerMovementController : MonoBehaviour
             return;
         }
 
-        var fromToRotation = Quaternion.FromToRotation(orientation.forward, cameraHolder.forward);
+        var fromToRotation = Quaternion.FromToRotation(orientation.forward, _cameraHolder.transform.forward);
         var input = new Vector3(_horizontalInput, 0, _verticalInput).normalized;
         var movement = fromToRotation * input;
         animator.SetFloat("MovementRight", movement.x);
@@ -79,13 +82,13 @@ public class PlayerMovementController : MonoBehaviour
 
     void FaceForward()
     {
-        var inputDir = cameraHolder.forward * _verticalInput + cameraHolder.right * _horizontalInput;
+        var inputDir = _cameraHolder.transform.forward * _verticalInput + _cameraHolder.transform.right * _horizontalInput;
         transform.forward = Vector3.Slerp(transform.forward, inputDir.normalized, Time.deltaTime * rotationSpeed);
     }
 
     void MovePlayer()
     {
-        _moveDirection = cameraHolder.forward * _verticalInput + cameraHolder.right * _horizontalInput;
+        _moveDirection = _cameraHolder.transform.forward * _verticalInput + _cameraHolder.transform.right * _horizontalInput;
         rb.AddForce(_moveDirection.normalized * moveSpeed * 10f, ForceMode.Force);
     }
 }

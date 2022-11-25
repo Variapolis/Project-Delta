@@ -1,11 +1,9 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using Zenject;
 
 public class TrackCursor : MonoBehaviour
 {
-    public CrosshairController crosshair;
+    [Inject] CrosshairController crosshair;
 
     private void Update()
     {
