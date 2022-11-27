@@ -25,7 +25,6 @@ public class ServerTeamBalancer : MonoBehaviourPunCallbacks
         if (!PhotonNetwork.IsMasterClient) return;
         var spiesCount = PhotonTeamsManager.Instance.GetTeamMembersCount(1);
         var guardsCount = PhotonTeamsManager.Instance.GetTeamMembersCount(2);
-        Debug.Log(PhotonTeamsManager.Instance.GetAvailableTeams());
         player.JoinTeam(spiesCount <= guardsCount ? (byte)1 : (byte)2);
     }
 }
