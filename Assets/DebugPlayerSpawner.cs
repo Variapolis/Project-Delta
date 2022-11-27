@@ -14,7 +14,7 @@ public class DebugPlayerSpawner : MonoBehaviour
 
     void Spawn()
     {
-        var player = _playerFactory.Create();
+        var player = _playerFactory.Create(Vector3.zero);
         _cameraHolder.target = player.transform;
     }
 }
