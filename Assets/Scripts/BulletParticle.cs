@@ -1,6 +1,5 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
+using Photon.Pun;
 using UnityEngine;
 
 public class BulletParticle : MonoBehaviour
@@ -11,15 +10,11 @@ public class BulletParticle : MonoBehaviour
 
     private void Reset() => _particleSystem = GetComponent<ParticleSystem>();
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Mouse0)) _particleSystem.Play();
-    }
-
     private void OnParticleCollision(GameObject other)
     {
-        // var events = _particleSystem.GetCollisionEvents(other, _collisionEvents);
-
-        if(other.TryGetComponent<IDamageable>(out var hit)) hit.Damage(100f);
+        if(other.TryGetComponent<IDamageable>(out var hit)) Hit(hit);
     }
+
+    [PunRPC]
+    private void Hit(IDamageable hit) => hit.Damage(100f);
 }

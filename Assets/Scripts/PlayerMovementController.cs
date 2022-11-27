@@ -1,4 +1,5 @@
 using Photon.Pun;
+using UniRx;
 using UnityEngine;
 using Zenject;
 
@@ -6,11 +7,11 @@ public class PlayerMovementController : MonoBehaviour
 {
     [Inject] private readonly CameraHolderController _cameraHolder;
     [Inject] private readonly CrosshairController crosshairController;
-    
+    [Inject] private PhotonView photonView;
+
     [Header("Movement")] [SerializeField] private float moveSpeed;
     [SerializeField] private Transform orientation;
     [SerializeField] private float rotationSpeed;
-    [SerializeField] private PhotonView photonView;
     [Header("References")] private float _horizontalInput;
     private float _verticalInput;
     private Vector3 _moveDirection;
@@ -21,6 +22,7 @@ public class PlayerMovementController : MonoBehaviour
     [SerializeField] private WeaponIKHandler _weaponIKHandler;
     private bool _isAiming;
 
+    [SerializeField] private PlayerWeaponController weaponController;
 
     private void Reset() => rb = GetComponent<Rigidbody>();
 
@@ -30,7 +32,11 @@ public class PlayerMovementController : MonoBehaviour
         GetInput();
         LimitSpeed();
         _isAiming = Input.GetMouseButton(1);
-        if (_isAiming) _weaponIKHandler.Aim();
+        if (_isAiming)
+        {
+            _weaponIKHandler.Aim();
+            if (Input.GetMouseButton(0) && photonView.IsMine) weaponController.FireWeapon();
+        }
         else _weaponIKHandler.StopAiming();
         if (_isAiming) TurnToCrosshair();
         else if (_moveDirection.x != 0f || _moveDirection.z != 0f) FaceForward();
