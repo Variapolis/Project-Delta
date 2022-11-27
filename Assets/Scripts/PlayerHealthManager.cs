@@ -1,28 +1,30 @@
 using Photon.Pun;
+using Photon.Pun.UtilityScripts;
+using Photon.Realtime;
 using UnityEngine;
+using Zenject;
 
 public class PlayerHealthManager : MonoBehaviour, IDamageable
 {
-    [SerializeField] private PhotonView photonView;
+    [Inject] private PhotonView _photonView;
     [SerializeField] private float health = 100f;
-    
+
     [PunRPC]
-    public void Damage(float damage, IDamageable.DamageType damageType = IDamageable.DamageType.Hit)
+    public void Damage(float damage, Player attacker, IDamageable.DamageType damageType = IDamageable.DamageType.Hit)
     {
-        if (!photonView.IsMine) return;
+        if (!_photonView.IsMine) return;
         health -= damage;
-        Debug.Log(health);
-        if (health <= 0)
-        {
-            Debug.Log("Killed");
-            KillPlayer();
-        }
+        if (health <= 0) KillPlayer(attacker);
 
         if (damageType == IDamageable.DamageType.Stun) StunPlayer();
         if (damageType == IDamageable.DamageType.Blind) BlindPlayer();
     }
 
-    private void KillPlayer() => PhotonNetwork.Destroy(gameObject);
+    private void KillPlayer(Player attacker)
+    {
+        if (!Equals(attacker, _photonView.Owner)) attacker.AddScore(1);
+        PhotonNetwork.Destroy(gameObject);
+    }
 
     private void BlindPlayer()
     {

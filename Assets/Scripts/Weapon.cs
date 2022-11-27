@@ -1,9 +1,10 @@
 using System.Collections;
+using Photon.Realtime;
 using UnityEngine;
 
 public class Weapon : MonoBehaviour
 {
-    [SerializeField] private ParticleSystem bulletOrigin;
+    [SerializeField] private BulletParticle bulletOrigin;
     [SerializeField] private Transform leftHandIKTarget;
     [SerializeField] private Transform leftHandIKHint;
     [SerializeField] private int maxAmmo;
@@ -26,12 +27,12 @@ public class Weapon : MonoBehaviour
         _ammoInMag = magazineSize;
     }
 
-    public void Fire()
+    public void Fire(Player owner)
     {
         if (_ammoInMag == 0 || !readyToFire) return;
         _ammoInMag--;
         StartCoroutine(CooldownTimer());
-        bulletOrigin.Play();
+        bulletOrigin.Fire(owner);
     }
 
     private IEnumerator CooldownTimer()

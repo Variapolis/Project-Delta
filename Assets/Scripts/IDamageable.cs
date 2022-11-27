@@ -1,4 +1,7 @@
-﻿public interface IDamageable
+﻿using JetBrains.Annotations;
+using Photon.Realtime;
+
+public interface IDamageable
 {
     public enum DamageType
     {
@@ -8,5 +11,5 @@
         Blind
     }
     
-    public void Damage(float damage, DamageType damageType = DamageType.Hit);
+    public void Damage(float damage, [CanBeNull] Player attacker = null, DamageType damageType = DamageType.Hit);
 }
