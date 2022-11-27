@@ -1,4 +1,5 @@
 using Photon.Pun;
+using Photon.Pun.UtilityScripts;
 using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,6 +12,10 @@ public class PlayAgainButton : MonoBehaviour
 
     void Start() => playAgainButton.onClick
         .AsObservable()
-        .Subscribe(_ => PhotonNetwork.LoadLevel("ReloadingOnline"))
+        .Subscribe(_ =>
+        {
+            foreach (var player in PhotonNetwork.PlayerList) player.SetScore(0);
+            PhotonNetwork.LoadLevel("ReloadingOnline");
+        })
         .AddTo(gameObject);
 }
