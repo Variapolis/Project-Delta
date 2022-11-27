@@ -26,6 +26,8 @@ public class PlayerListController : MonoBehaviourPunCallbacks
 
     public override void OnPlayerEnteredRoom(Player newPlayer) => RefreshPlayerList();
 
+    public override void OnPlayerLeftRoom(Player otherPlayer) => RefreshPlayerList();
+
     private void OnTeamsChanged(Player player, PhotonTeam team) => RefreshPlayerList();
 
     private void RefreshPlayerList()
