@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6446878462464174301}
   - component: {fileID: 6177150380994958007}
+  - component: {fileID: 1729975392922316333}
   m_Layer: 0
   m_Name: ProjectContext
   m_TagString: Untagged
@@ -60,3 +61,15 @@ MonoBehaviour:
       _missingHandlerDefaultResponse: 2
       _requireStrictUnsubscribe: 0
       _defaultAsyncTickPriority: 1
+--- !u!114 &1729975392922316333
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8573539446079469858}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e27aee38a74f9324391deab04afd9ab2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -105,6 +105,10 @@ MonoBehaviour:
   bulletOrigin: {fileID: 7557356487147103298}
   leftHandIKTarget: {fileID: 4259240252160742742}
   leftHandIKHint: {fileID: 4259240251323179602}
+  maxAmmo: 120
+  magazineSize: 15
+  fireRate: 0
+  timeToFire: 0.1
 --- !u!1 &4259240251323179603
 GameObject:
   m_ObjectHideFlags: 0
