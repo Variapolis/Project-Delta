@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/OnlinePlay.unity
     guid: dba8c31616abbbb4d91ef980cf5c135f
+  - enabled: 1
+    path: Assets/Scenes/ReloadingOnline.unity
+    guid: 83717d6acf551ff498335ee78f3b0d93
   m_configObjects: {}

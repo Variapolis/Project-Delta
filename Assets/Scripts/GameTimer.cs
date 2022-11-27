@@ -7,11 +7,11 @@ using UnityEngine;
 
 public class GameTimer : MonoBehaviourPunCallbacks
 {
-    private const int GameTime = 300;
+    private const int GameTime = 5;
     [SerializeField] private TMP_Text timerText;
     private double _gameStartTime;
     private bool _hasStarted;
-    private ReactiveProperty<int> _timeLeft;
+    private readonly ReactiveProperty<int> _timeLeft = new();
     public IReadOnlyReactiveProperty<int> TimeLeft => _timeLeft;
 
     private void Start()
