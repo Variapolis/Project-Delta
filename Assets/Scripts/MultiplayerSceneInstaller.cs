@@ -14,5 +14,6 @@ public class MultiplayerSceneInstaller : MonoInstaller
         Container.Bind<MouseVisibilityController>().AsSingle().NonLazy();
         Container.Bind<PlayerList>().AsSingle().NonLazy();
         Container.Bind<Registrar>().AsSingle().NonLazy();
+        Container.Bind<ClientPlayerModel>().AsSingle().NonLazy();
     }
 }

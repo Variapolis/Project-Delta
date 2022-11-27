@@ -1,3 +1,4 @@
+using System;
 using Photon.Pun;
 using Photon.Pun.UtilityScripts;
 using Photon.Realtime;
@@ -7,7 +8,13 @@ using Zenject;
 public class PlayerHealthManager : MonoBehaviour, IDamageable
 {
     [Inject] private PhotonView _photonView;
+    [Inject] private ClientPlayerModel _playerModel;
     [SerializeField] private float health = 100f;
+
+    private void Start()
+    {
+        
+    }
 
     [PunRPC]
     public void Damage(float damage, Player attacker, IDamageable.DamageType damageType = IDamageable.DamageType.Hit)
@@ -23,6 +30,7 @@ public class PlayerHealthManager : MonoBehaviour, IDamageable
     private void KillPlayer(Player attacker)
     {
         if (!Equals(attacker, _photonView.Owner)) attacker.AddScore(1);
+        if (_photonView.IsMine) _playerModel.IsAlive.Value = false;
         PhotonNetwork.Destroy(gameObject);
     }
 
