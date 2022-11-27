@@ -1,8 +1,8 @@
 using System;
-using System.Timers;
 using ExitGames.Client.Photon;
 using Photon.Pun;
 using TMPro;
+using UniRx;
 using UnityEngine;
 
 public class GameTimer : MonoBehaviourPunCallbacks
@@ -11,7 +11,8 @@ public class GameTimer : MonoBehaviourPunCallbacks
     [SerializeField] private TMP_Text timerText;
     private double _gameStartTime;
     private bool _hasStarted;
-    private bool finished;
+    private ReactiveProperty<int> _timeLeft;
+    public IReadOnlyReactiveProperty<int> TimeLeft => _timeLeft;
 
     private void Start()
     {
@@ -27,14 +28,10 @@ public class GameTimer : MonoBehaviourPunCallbacks
             timerText.text = SecondsToMinSec(GameTime);
             return;
         }
-        
-        var timeLeft = GameTime - Convert.ToInt32(PhotonNetwork.Time - _gameStartTime);
-        timerText.text = SecondsToMinSec(timeLeft);
-        if (timeLeft <= 0)
-        {
-            enabled = false;
-            // TODO: End Game Panel appears
-        }
+
+        _timeLeft.Value = GameTime - Convert.ToInt32(PhotonNetwork.Time - _gameStartTime);
+        timerText.text = SecondsToMinSec(_timeLeft.Value);
+        if (_timeLeft.Value <= 0) enabled = false;
     }
 
     private static string SecondsToMinSec(int seconds) => $"{Mathf.Floor(seconds / 60f).ToString()}:{seconds % 60:00}";
@@ -42,7 +39,7 @@ public class GameTimer : MonoBehaviourPunCallbacks
     public override void OnRoomPropertiesUpdate(Hashtable propertiesThatChanged)
     {
         var startTime = propertiesThatChanged["StartTime"];
-        if(startTime == null) return;
+        if (startTime == null) return;
         _gameStartTime = double.Parse(startTime.ToString());
         _hasStarted = true;
     }
