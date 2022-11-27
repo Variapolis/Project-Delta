@@ -7,10 +7,12 @@ public class Weapon : MonoBehaviour
     [SerializeField] private BulletParticle bulletOrigin;
     [SerializeField] private Transform leftHandIKTarget;
     [SerializeField] private Transform leftHandIKHint;
+    [SerializeField] private int damage;
     [SerializeField] private int maxAmmo;
     [SerializeField] private int magazineSize;
     [SerializeField] private FireRateType fireRate;
     [SerializeField] private float timeToFire;
+    [SerializeField] private AudioSource gunshotSource;
 
     private bool readyToFire;
     private int _spareAmmo;
@@ -32,7 +34,8 @@ public class Weapon : MonoBehaviour
         if (_ammoInMag == 0 || !readyToFire) return;
         _ammoInMag--;
         StartCoroutine(CooldownTimer());
-        bulletOrigin.Fire(owner);
+        bulletOrigin.Fire(owner, damage);
+        gunshotSource.Play();
     }
 
     private IEnumerator CooldownTimer()

@@ -11,12 +11,6 @@ public class PlayerHealthManager : MonoBehaviour, IDamageable
     [Inject] private ClientPlayerModel _playerModel;
     [SerializeField] private float health = 100f;
 
-    private void Start()
-    {
-        
-    }
-
-    [PunRPC]
     public void Damage(float damage, Player attacker, IDamageable.DamageType damageType = IDamageable.DamageType.Hit)
     {
         if (!_photonView.IsMine) return;
