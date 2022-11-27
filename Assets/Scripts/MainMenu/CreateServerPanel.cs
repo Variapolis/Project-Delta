@@ -1,4 +1,6 @@
+using ExitGames.Client.Photon;
 using Photon.Pun;
+using Photon.Pun.UtilityScripts;
 using Photon.Realtime;
 using TMPro;
 using UniRx;
