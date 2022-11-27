@@ -3,7 +3,7 @@ using Photon.Realtime;
 using TMPro;
 using UnityEngine;
 
-public class PlayerUI : MonoBehaviour
+public class PlayerLobbyUI : PlayerUIElement
 {
     [SerializeField] private TMP_Text nameText;
     [SerializeField] private TMP_Text playerIDText;
@@ -11,7 +11,7 @@ public class PlayerUI : MonoBehaviour
 
     private Player _player;
 
-    public Player Player
+    public override Player Player
     {
         get => _player;
         set
@@ -19,8 +19,8 @@ public class PlayerUI : MonoBehaviour
             _player = value;
             nameText.text = value.NickName;
             playerIDText.text = _player.ActorNumber.ToString();
-            if(Equals(value, PhotonNetwork.LocalPlayer)) nameText.color = Color.yellow;
-            // playerLatencyText.text = PhotonNetwork.GetPing().ToString();
+            if (Equals(value, PhotonNetwork.LocalPlayer)) nameText.color = Color.yellow;
+            playerLatencyText.text = "N/A";
         }
     }
 }
