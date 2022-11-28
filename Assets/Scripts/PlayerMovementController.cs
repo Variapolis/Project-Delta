@@ -31,10 +31,12 @@ public class PlayerMovementController : MonoBehaviour
         GetInput();
         LimitSpeed();
         _isAiming = Input.GetMouseButton(1);
+        if (Input.GetKeyDown(KeyCode.R)) weaponController.Reload(); 
         if (_isAiming)
         {
             _weaponIKHandler.Aim();
-            if (Input.GetMouseButton(0) && photonView.IsMine) weaponController.FireWeapon();
+            var isFiring = weaponController.WeaponFireRate == Weapon.FireRateType.Single ? Input.GetMouseButtonDown(0) : Input.GetMouseButton(0);
+            if (isFiring && photonView.IsMine) weaponController.FireWeapon();
         }
         else _weaponIKHandler.StopAiming();
         if (_isAiming) TurnToCrosshair();

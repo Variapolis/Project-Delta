@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using Photon.Realtime;
 using UnityEngine;
@@ -13,25 +14,28 @@ public class Weapon : MonoBehaviour
     [SerializeField] private FireRateType fireRate;
     [SerializeField] private float timeToFire;
     [SerializeField] private AudioSource gunshotSource;
+    [SerializeField] private float reloadSpeed;
 
-    private bool readyToFire;
+    private bool _readyToFire;
     private int _spareAmmo;
     private int _ammoInMag;
+
     public FireRateType FireRate => fireRate;
+    public float ReloadSpeed => reloadSpeed;
 
     public Transform LeftHandIKTarget => leftHandIKTarget;
     public Transform LeftHandIKHint => leftHandIKHint;
 
     private void Start()
     {
-        readyToFire = true;
+        _readyToFire = true;
         _spareAmmo = maxAmmo;
         _ammoInMag = magazineSize;
     }
 
     public void Fire(Player owner)
     {
-        if (_ammoInMag == 0 || !readyToFire) return;
+        if (_ammoInMag == 0 || !_readyToFire) return;
         _ammoInMag--;
         StartCoroutine(CooldownTimer());
         bulletOrigin.Fire(owner, damage);
@@ -40,16 +44,24 @@ public class Weapon : MonoBehaviour
 
     private IEnumerator CooldownTimer()
     {
-        readyToFire = false;
+        _readyToFire = false;
         var elapsedTime = timeToFire;
         while (true)
         {
             yield return new WaitForEndOfFrame();
             elapsedTime -= Time.deltaTime;
             if (!(elapsedTime <= 0f)) continue;
-            readyToFire = true;
+            _readyToFire = true;
             break;
         }
+    }
+
+    public void Reload()
+    {
+        if (_spareAmmo <= 0) return;
+        _ammoInMag = magazineSize;
+        // Math.Max(_spareAmmo - (_spareAmmo - magazineSize), 0);
+        // TODO: Remove spare ammo after reload
     }
 
     public enum FireRateType

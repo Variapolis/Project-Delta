@@ -37,7 +37,7 @@ Transform:
   - {fileID: 4259240252160742742}
   - {fileID: 4259240251323179602}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 180, y: 180, z: 180}
 --- !u!33 &1706773778397521610
 MeshFilter:
@@ -112,6 +112,7 @@ MonoBehaviour:
   fireRate: 0
   timeToFire: 0.1
   gunshotSource: {fileID: 5396934188754706863}
+  reloadSpeed: 0.5
 --- !u!82 &5396934188754706863
 AudioSource:
   m_ObjectHideFlags: 0
