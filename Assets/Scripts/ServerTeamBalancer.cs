@@ -12,7 +12,7 @@ public class ServerTeamBalancer : MonoBehaviourPunCallbacks
 
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
-        if (!newPlayer.IsMasterClient && newPlayer.GetPhotonTeam() == null) SetPlayerTeam(newPlayer);
+        if (PhotonNetwork.IsMasterClient && !newPlayer.IsMasterClient) SetPlayerTeam(newPlayer);
     }
 
     public override void OnPlayerLeftRoom(Player otherPlayer)

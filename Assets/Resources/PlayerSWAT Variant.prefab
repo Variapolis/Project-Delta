@@ -3486,6 +3486,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Pistol_5
       objectReference: {fileID: 0}
+    - target: {fileID: 5396934188754706863, guid: 65a65217eb9357048a63f2bf9fabe05f, type: 3}
+      propertyPath: MaxDistance
+      value: 15
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: 65a65217eb9357048a63f2bf9fabe05f, type: 3}

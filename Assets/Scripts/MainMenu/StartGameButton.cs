@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(Button))]
-public class StartGameButton : MonoBehaviour
+public class StartGameButton : MonoBehaviourPunCallbacks
 {
     [SerializeField] private Button startButton;
 

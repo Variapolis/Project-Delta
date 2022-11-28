@@ -18,7 +18,8 @@ public class Weapon : MonoBehaviour
 
     private bool _readyToFire;
     private int _spareAmmo;
-    private int _ammoInMag;
+
+    public int AmmoInMag { get; private set; }
 
     public FireRateType FireRate => fireRate;
     public float ReloadSpeed => reloadSpeed;
@@ -30,13 +31,13 @@ public class Weapon : MonoBehaviour
     {
         _readyToFire = true;
         _spareAmmo = maxAmmo;
-        _ammoInMag = magazineSize;
+        AmmoInMag = magazineSize;
     }
 
     public void Fire(Player owner)
     {
-        if (_ammoInMag == 0 || !_readyToFire) return;
-        _ammoInMag--;
+        if (owner.IsLocal && (AmmoInMag == 0 || !_readyToFire)) return;
+        AmmoInMag--;
         StartCoroutine(CooldownTimer());
         bulletOrigin.Fire(owner, damage);
         gunshotSource.Play();
@@ -59,7 +60,7 @@ public class Weapon : MonoBehaviour
     public void Reload()
     {
         if (_spareAmmo <= 0) return;
-        _ammoInMag = magazineSize;
+        AmmoInMag = magazineSize;
         // Math.Max(_spareAmmo - (_spareAmmo - magazineSize), 0);
         // TODO: Remove spare ammo after reload
     }

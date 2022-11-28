@@ -16,7 +16,7 @@ public class PlayerWeaponController : MonoBehaviour
 
     public void FireWeapon()
     {
-        if (_playerModel.IsReloading.Value) return;
+        if (_playerModel.IsReloading.Value || equippedWeapon.AmmoInMag == 0) return;
         _photonView.RPC(nameof(RPCFireWeapon), RpcTarget.AllViaServer, _photonView.Owner);
     }
 
