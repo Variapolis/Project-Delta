@@ -15,7 +15,7 @@ MonoBehaviour:
   AppSettings:
     AppIdRealtime: ***REMOVED***
     AppIdFusion: 
-    AppIdChat: 
+    AppIdChat: ***REMOVED***
     AppIdVoice: 
     AppVersion: 
     UseNameServer: 1

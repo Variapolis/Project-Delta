@@ -7,7 +7,7 @@ using UnityEngine;
 
 public class GameTimer : MonoBehaviourPunCallbacks
 {
-    private const int GameTime = 300;
+    private const int GameTime = 90;
     [SerializeField] private TMP_Text timerText;
     private double _gameStartTime;
     private bool _hasStarted;

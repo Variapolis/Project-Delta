@@ -1,18 +1,22 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using System.IO;
+using Leguar.TotalJSON;
 
 public static class SaveDataManager
 {
-    public static PlayerData LoadPlayerData()
+    public const string SaveDataPath = "playerData.json";
+    public static bool TryLoadPlayerData(out PlayerData data)
     {
-        return new PlayerData();
+        data = default;
+        if (!File.Exists(SaveDataPath))
+        {
+            SavePlayerData(new PlayerData());
+            return false;
+        }
+        JSON.ParseString(File.ReadAllText(SaveDataPath)).Deserialize<PlayerData>();
+        return true;
     }
 
-    public static void SavePlayerData(PlayerData data)
-    {
-        
-    }
+    public static void SavePlayerData(PlayerData data) => File.WriteAllText(SaveDataPath, JSON.Serialize(data).CreateString());
 }
 
 public struct PlayerData
