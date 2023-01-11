@@ -14,6 +14,7 @@ public class ServerElement : MonoBehaviour, IPointerClickHandler
     [SerializeField] private TMP_Text latency;
 
     private RoomInfo _room;
+
     public RoomInfo Room
     {
         get => Room;

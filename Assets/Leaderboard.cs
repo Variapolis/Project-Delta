@@ -1,26 +1,35 @@
-using System.Collections;
-using System.Collections.Generic;
 using PlayFab;
 using UnityEngine;
 using PlayFab.ClientModels;
 
 public class Leaderboard : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start() => Login();
+    [SerializeField] private GameObject leaderboardElementPrefab;
+    [SerializeField] private RectTransform leaderboardContent;
 
-    private void Login()
+    private void OnEnable() => GetLeaderboard();
+
+    private void OnDisable() => leaderboardContent.DestroyChildren();
+
+    private void GetLeaderboard()
     {
-        SaveDataManager.TryLoadPlayerData(out var data);
-        var request = new LoginWithCustomIDRequest()
+        var request = new GetLeaderboardRequest
         {
-            CreateAccount = true,
-            CustomId = data.guid
+            MaxResultsCount = 5,
+            StatisticName = "Kills",
+            ProfileConstraints = new PlayerProfileViewConstraints(showStatistics: true)
         };
-        PlayFabClientAPI.LoginWithCustomID(request, PlayfabResultCallback, PlayfabErrorCallback );
+        PlayFabClientAPI.GetLeaderboard(request, PrintLeaderboard, ShowError);
     }
 
-    private void PlayfabResultCallback(LoginResult result) => Debug.Log(result.ToJson());
+    private void PrintLeaderboard(GetLeaderboardResult leaderboard)
+    {
+        foreach (var result in leaderboard.Leaderboard)
+        {
+            var element = Instantiate(leaderboardElementPrefab, leaderboardContent);
+            element.GetComponent<LeaderboardElement>().Entry = result;
+        }
+    }
 
-    private void PlayfabErrorCallback(PlayFabError error) => Debug.Log(error.ErrorMessage);
+    private void ShowError(PlayFabError error) => Debug.Log($"Leaderboard Error: {error.ErrorMessage}");
 }

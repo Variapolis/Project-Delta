@@ -5,7 +5,7 @@ using UniRx;
 public class MainMenuModel
 {
     [UsedImplicitly]
-    private readonly ReactiveProperty<MenuState> menuState = new ReactiveProperty<MenuState>();
+    private readonly ReactiveProperty<MenuState> menuState = new();
 
     public IReadOnlyReactiveProperty<MenuState> MenuState => menuState;
 

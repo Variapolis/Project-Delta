@@ -5378,6 +5378,15 @@ namespace PlayFab.ClientModels
         /// Whether to show the values to date. Defaults to false
         /// </summary>
         public bool ShowValuesToDate;
+
+        public PlayerProfileViewConstraints()
+        {
+        }
+
+        public PlayerProfileViewConstraints(bool showStatistics)
+        {
+            ShowStatistics = showStatistics;
+        }
     }
 
     [Serializable]

@@ -1,5 +1,7 @@
 using Photon.Pun;
 using Photon.Realtime;
+using PlayFab;
+using PlayFab.ClientModels;
 using TMPro;
 using UniRx;
 using UniRx.Diagnostics;
@@ -38,6 +40,13 @@ namespace MainMenu
 
         private void TryLogin()
         {
+            var data = SaveDataManager.LoadPlayerData();
+            var request = new LoginWithCustomIDRequest
+            {
+                CreateAccount = true,
+                CustomId = data.guid
+            };
+            PlayFabClientAPI.LoginWithCustomID(request, PlayfabResultCallback, PlayfabErrorCallback );
             PhotonNetwork.LocalPlayer.NickName = nicknameField.text;
             PhotonNetwork.ConnectUsingSettings();
             PhotonNetwork.AutomaticallySyncScene = true;
@@ -52,5 +61,9 @@ namespace MainMenu
             warningLabel.text = text;
             warningLabel.color = textColor;
         }
+
+        private void PlayfabResultCallback(LoginResult result) => Debug.Log(result.ToJson());
+
+        private void PlayfabErrorCallback(PlayFabError error) => Debug.Log(error.ErrorMessage);
     }
 }

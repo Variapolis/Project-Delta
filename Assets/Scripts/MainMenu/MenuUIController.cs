@@ -12,11 +12,7 @@ public class MenuUIController : MonoBehaviour, IInitializable
         _menuModel.MenuState
             .DistinctUntilChanged()
             .Where(s => gameObject.activeSelf != (s == openState))
-            .Subscribe(s =>
-            {
-                gameObject.SetActive(s == openState);
-                Debug.Log($"{gameObject.name}: {openState} - {s}: {s == openState}");
-            })
+            .Subscribe(s => gameObject.SetActive(s == openState))
             .AddTo(gameObject);
 }
 
