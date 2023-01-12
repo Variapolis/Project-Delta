@@ -19,7 +19,8 @@ namespace MainMenu
         private void Start()
         {
             warningLabel.text = string.Empty;
-
+            var data = SaveDataManager.LoadPlayerData();
+            if (data.username != null) nicknameField.text = data.username;
             loginButton
                 .OnClickAsObservable()
                 .Where(_ => !PhotonNetwork.IsConnectedAndReady && nicknameField.text != string.Empty)
@@ -41,12 +42,14 @@ namespace MainMenu
         private void TryLogin()
         {
             var data = SaveDataManager.LoadPlayerData();
+            data.username = nicknameField.text;
             var request = new LoginWithCustomIDRequest
             {
                 CreateAccount = true,
                 CustomId = data.guid
             };
             PlayFabClientAPI.LoginWithCustomID(request, PlayfabResultCallback, PlayfabErrorCallback);
+            SaveDataManager.SavePlayerData(data);
             PhotonNetwork.LocalPlayer.NickName = nicknameField.text;
             PhotonNetwork.ConnectUsingSettings();
             PhotonNetwork.AutomaticallySyncScene = true;

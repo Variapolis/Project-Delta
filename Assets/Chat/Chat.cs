@@ -50,7 +50,7 @@ public class Chat : MonoBehaviourPunCallbacks, IChatClientListener
 
     public void DebugReturn(DebugLevel level, string message) => Debug.Log($"Chat: {level} - {message}");
 
-    public void OnDisconnected() => Debug.Log("Chat Connected");
+    public void OnDisconnected() => Debug.Log("Chat Disconnected");
 
     public new void OnConnected()
     {
