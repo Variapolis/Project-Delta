@@ -1,4 +1,5 @@
 using System;
+using ExitGames.Client.Photon;
 using Photon.Pun;
 using Photon.Pun.UtilityScripts;
 using Photon.Realtime;
@@ -43,6 +44,9 @@ public class PlayerHealthManager : MonoBehaviour, IDamageable
         if (!Equals(attacker.GetPhotonTeam(), _photonView.Owner.GetPhotonTeam())) attacker.AddScore(1);
         if (_photonView && _photonView.IsMine) _playerModel.IsAlive.Value = false;
         Health = 0;
+        var properties = new Hashtable();
+        properties.Add("Deaths", (int)_photonView.Owner.CustomProperties["Deaths"]+1);
+        _photonView.Owner.SetCustomProperties(properties);
         PhotonNetwork.Destroy(gameObject);
     }
 

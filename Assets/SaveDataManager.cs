@@ -22,7 +22,7 @@ public static class SaveDataManager
     public static void SavePlayerData(PlayerData data)
     {
         _loadedPlayerData = data;
-        File.WriteAllText(SaveDataPath, Encrypt(JSON.Serialize(_loadedPlayerData).CreateString()));
+        File.WriteAllText(SaveDataPath, Encrypt(JSON.Serialize(data).CreateString()));
     }
 
     private static void SaveNewPlayerData() =>
