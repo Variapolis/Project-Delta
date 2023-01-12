@@ -1,6 +1,5 @@
 ﻿using PlayFab.ClientModels;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class LeaderboardElement : MonoBehaviour
@@ -17,7 +16,7 @@ public class LeaderboardElement : MonoBehaviour
         set
         {
             _entry = value;
-            playerNameText.text = value.DisplayName;
+            playerNameText.text = value.Profile.DisplayName;
             killsText.text = value.Profile.Statistics[0].Value.ToString();
             deathsText.text = value.Profile.Statistics[1].Value.ToString();
             kdText.text = value.Profile.Statistics[2].Value.ToString();

@@ -17,7 +17,7 @@ public class Leaderboard : MonoBehaviour
         {
             MaxResultsCount = 5,
             StatisticName = "Kills",
-            ProfileConstraints = new PlayerProfileViewConstraints(showStatistics: true)
+            ProfileConstraints = new PlayerProfileViewConstraints { ShowDisplayName = true, ShowStatistics = true }
         };
         PlayFabClientAPI.GetLeaderboard(request, PrintLeaderboard, ShowError);
     }

@@ -46,7 +46,7 @@ namespace MainMenu
                 CreateAccount = true,
                 CustomId = data.guid
             };
-            PlayFabClientAPI.LoginWithCustomID(request, PlayfabResultCallback, PlayfabErrorCallback );
+            PlayFabClientAPI.LoginWithCustomID(request, PlayfabResultCallback, PlayfabErrorCallback);
             PhotonNetwork.LocalPlayer.NickName = nicknameField.text;
             PhotonNetwork.ConnectUsingSettings();
             PhotonNetwork.AutomaticallySyncScene = true;
@@ -62,7 +62,15 @@ namespace MainMenu
             warningLabel.color = textColor;
         }
 
-        private void PlayfabResultCallback(LoginResult result) => Debug.Log(result.ToJson());
+        private void PlayfabResultCallback(LoginResult result)
+        {
+            PlayFabClientAPI.UpdateUserTitleDisplayName(
+                new UpdateUserTitleDisplayNameRequest { DisplayName = PhotonNetwork.LocalPlayer.NickName },
+                NameUpdateCallback, PlayfabErrorCallback);
+        }
+
+        private void NameUpdateCallback(UpdateUserTitleDisplayNameResult result) =>
+            Debug.Log($"Name Updated to {result.DisplayName}");
 
         private void PlayfabErrorCallback(PlayFabError error) => Debug.Log(error.ErrorMessage);
     }
