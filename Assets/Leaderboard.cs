@@ -15,7 +15,7 @@ public class Leaderboard : MonoBehaviour
     {
         var request = new GetLeaderboardRequest
         {
-            MaxResultsCount = 5,
+            MaxResultsCount = 20,
             StatisticName = "Kills",
             ProfileConstraints = new PlayerProfileViewConstraints { ShowDisplayName = true, ShowStatistics = true }
         };
