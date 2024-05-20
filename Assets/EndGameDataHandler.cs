@@ -35,10 +35,8 @@ public class EndGameDataHandler : MonoBehaviour
             }
         };
 
-        PlayFabClientAPI.UpdatePlayerStatistics(request, StatisticsResultCallback, StatisticsErrorCallback);
+        PlayFabClientAPI.UpdatePlayerStatistics(request, _ => Debug.Log("Statistics Updated"), StatisticsErrorCallback);
     }
-
-    private void StatisticsResultCallback(UpdatePlayerStatisticsResult result) => Debug.Log("Stats updated");
 
     private void StatisticsErrorCallback(PlayFabError error) => Debug.Log($"Stats update failed: {error.ErrorMessage}");
 }

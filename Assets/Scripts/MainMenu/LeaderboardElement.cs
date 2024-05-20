@@ -1,4 +1,5 @@
-﻿using PlayFab.ClientModels;
+﻿using System.Linq;
+using PlayFab.ClientModels;
 using TMPro;
 using UnityEngine;
 
@@ -16,10 +17,26 @@ public class LeaderboardElement : MonoBehaviour
         set
         {
             _entry = value;
+            var latestVersion = value.Profile.Statistics.Select(s => s.Version).Max();
             playerNameText.text = value.Profile.DisplayName;
-            killsText.text = value.Profile.Statistics[0].Value.ToString();
-            deathsText.text = value.Profile.Statistics[1].Value.ToString();
-            kdText.text = value.Profile.Statistics[2].Value.ToString();
+            foreach (var statisticModel in value.Profile.Statistics)
+            {
+                if (statisticModel.Version != latestVersion) continue;
+                switch (statisticModel.Name)
+                {
+                    case "Kills":
+                        killsText.text = statisticModel.Value.ToString();
+                        break;
+                    case "Deaths":
+                        deathsText.text = statisticModel.Value.ToString();
+                        break;
+                    case "KD Ratio":
+                        kdText.text = statisticModel.Value.ToString();
+                        break;
+                    default:
+                        continue;
+                }
+            }
         }
     }
 }
